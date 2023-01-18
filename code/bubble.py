@@ -47,3 +47,17 @@ def str_compare(s1, s2):
     return(ret)
 
 str_compare("hello", "asdf")
+
+
+# 선택정렬
+
+# for i in range(len(lst2)):
+#     m = lst2[i]
+#     idx = i
+#     for j in range(i+1, len(lst2)):
+#          if (m > lst2[j]):
+#             m = lst2[j]
+#             idx = j
+    
+#     if (i != idx):
+#         lst2[i], lst2[idx] = lst2[idx], lst2[i]
