@@ -4,33 +4,36 @@ sys.stdin = open("input.txt", "r")
 # import sys
 # input = sys.stdin.readline
 
-col, row = map(int, input().split())
+# 2304
 n = int(input())
-rows = []
-cols = []
+max_height = 0
+max_point = None
+lst = []
 
 for i in range(n):
     a, b = map(int, input().split())
-    
-    if(a == 0):
-        rows += [b]
+    lst.append([a, b])
+    if (b > max_height):
+        max_height = b
+        max_point = a
+
+lst2 = sorted(lst, key = lambda x: x[0])
+mi = lst2[0][0]
+ma = lst2[-1][0]
+field = [[0]*(ma + 1) for i in range(max_height + 1)]
+
+for i in lst2:
+    if (i[0] < max_point):
+        for j in range(i[1]):
+            for k in range(i[0], max_point + 1):
+                field[j][k] = 1
     else:
-        cols += [b]
+        for j in range(i[1]):
+            for k in range(max_point, i[0] + 1):
+                field[j][k] = 1
 
-rows += [row] # 1 1 1 2 2 2 3 3 3 같이 반복해야 한다.
-cols += [col] # 1 2 3 1 2 3 1 2 3 같이 반복해야 한다. 2중 반복문을 사용하면 쉽긴하다.
-rows = [0] + rows
 
-rows.sort()
-cols.sort()
+res1 = list(map(sum, field))
+res2 = sum(res1)
 
-areas = []
-for i in range(1, len(rows)):
-    top = rows[i - 1]
-    left = 0 # 왼쪽 초기값
-    for j in range(len(cols)):
-        areas += [(rows[i] - top) * (cols[j] - left)] # 세로 * 가로
-        left = cols[j] # 갱신
-
-res = max(areas)
-print(res)
+print(res2)
