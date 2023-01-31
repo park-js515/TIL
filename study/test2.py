@@ -1,55 +1,36 @@
 import sys
 sys.stdin = open("input.txt", "r")
 
-# 1244
-
 # import sys
 # input = sys.stdin.readline
 
-# 1244
-
-def ftn(lst, r, a, b):
-    ret = lst[:]
-    
-    def cng(k):
-        return k * (-1) + 1
-    
-    bot, top = 1, r
-
-    if (a == 1):
-        for i in range(b, r + 1, b):
-            ret[i] = cng(ret[i])
-    
-    if (a == 2):
-        ret[b] = cng(ret[b])
-        left = b - 1
-        right = b + 1
-
-        while (left >= bot and right <= top):
-            if (ret[left] == ret[right]):
-                ret[left], ret[right] = cng(ret[left]), cng(ret[right])
-                left -= 1
-                right += 1
-            else:
-                break
-
-    return ret
-
-r = int(input())
-lst = list(map(int, input().split()))
-lst = [0] + lst
+col, row = map(int, input().split())
 n = int(input())
+rows = []
+cols = []
 
 for i in range(n):
-    a, b = map(int, input().split()) # 성별, 번호
-    lst = ftn(lst, r, a, b)
+    a, b = map(int, input().split())
+    
+    if(a == 0):
+        rows += [b]
+    else:
+        cols += [b]
 
-lst = lst[1:]
+rows += [row] # 1 1 1 2 2 2 3 3 3 같이 반복해야 한다.
+cols += [col] # 1 2 3 1 2 3 1 2 3 같이 반복해야 한다. 2중 반복문을 사용하면 쉽긴하다.
+rows = [0] + rows
 
-# 20개씩 출력하기
-k = 0
-while (k + 20 < r):
-    print(*lst[k:k + 20])
-    k += 20
+rows.sort()
+cols.sort()
 
-print(*lst[k:])
+areas = []
+for i in range(1, len(rows)):
+    top = rows[i - 1]
+    left = 0 # 왼쪽 초기값
+    for j in range(len(cols)):
+        areas += [(rows[i] - top) * (cols[j] - left)] # 세로 * 가로
+        left = cols[j] # 갱신
+
+res = max(areas)
+print(res)
