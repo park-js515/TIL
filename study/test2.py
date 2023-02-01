@@ -4,36 +4,32 @@ sys.stdin = open("input.txt", "r")
 # import sys
 # input = sys.stdin.readline
 
-# 2304
-n = int(input())
-max_height = 0
-max_point = None
-lst = []
+def clr(a, b):
+    if (a == 0 or b == 0):
+        return a + b
+    if (a == b):
+        return a
+    
+    return a + b
 
-for i in range(n):
-    a, b = map(int, input().split())
-    lst.append([a, b])
-    if (b > max_height):
-        max_height = b
-        max_point = a
+T = int(input())    
 
-lst2 = sorted(lst, key = lambda x: x[0])
-mi = lst2[0][0]
-ma = lst2[-1][0]
-field = [[0]*(ma + 1) for i in range(max_height + 1)]
+for test_case in range(1, T + 1):
+    n = int(input())
+    total = 0
 
-for i in lst2:
-    if (i[0] < max_point):
-        for j in range(i[1]):
-            for k in range(i[0], max_point + 1):
-                field[j][k] = 1
-    else:
-        for j in range(i[1]):
-            for k in range(max_point, i[0] + 1):
-                field[j][k] = 1
+    for i in range(n):
+        a, b, c, d, e = map(int, input().split())
+        field = [[0]*10 for i in range(10)]
 
+        for j in range(a, c + 1):
+            for k in range(b, d + 1):
+                field[j][k] = clr(field[j][k], e)
 
-res1 = list(map(sum, field))
-res2 = sum(res1)
+    for j in range(10):
+        for k in range(10):
+            if (field[j][k] == 3):
+                total += 1
 
-print(res2)
+    # print(f"#{test_case} {total}")
+    print(field)
