@@ -1,6 +1,9 @@
 import sys
 sys.stdin = open("input.txt", "r")
 
+# import sys
+# input = sys.stdin.readline
+
 trs = {0: 5, 1: 3, 2: 4, 3: 5, 4: 2, 5: 0}
 
 def pos(val, lst):
