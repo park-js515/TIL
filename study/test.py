@@ -4,49 +4,57 @@ sys.stdin = open("input.txt", "r")
 # import sys
 # input = sys.stdin.readline
 
-trs = {0: 5, 1: 3, 2: 4, 3: 5, 4: 2, 5: 0}
+def chg(ch):
+    chg1 = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
 
-def pos(val, lst):
-    temp = lst[:]
+    return chg1[ch]
 
-    for i in range(6):
-        if (temp[i] == val):
-            break
+def compare(cnt, restrict):
+    ret = [0]*4
     
-    ret1 = temp[trs[i]]
-    temp2 = []
-    
-    for j in range(6):
-        if (j not in [i, trs[i]]):
-            temp2.append(temp[j])
+    for i in range(4):
+        if cnt[i] >= restrict[i]:
+            ret[i] += 1
 
-    return (ret1, temp2)
+    return ret
 
-n = int(input())
-a = list(map(int, input().split()))
-lst = [list(map(int, input().split())) for i in range(n - 1)]
-result = []
+def step(ch, i):
+    global st, cnt, restrict, check
+
+    # minus
+    a = st[i - 1]
+    idx1 = chg(a)
+    cnt[idx1] -= 1
+
+    if cnt[idx1] < restrict[idx1] and check[idx1] == 1:
+        check[idx1] -= 1
+
+    # plus
+    idx2 = chg(ch)
+    cnt[idx2] += 1
+
+    if cnt[idx2] >= restrict[idx2] and check[idx2] == 0:
+        check[idx2] += 1
 
 
-for i in range(6):
-    temp = a[:]
-    sum_lst = []
-    val = temp[i]
-    temp2 = []
-    
-    for j in range(6):
-        if (j not in [i, trs[i]]):
-            temp2.append(temp[j])
-    
-    sum_lst.append(temp2)
+s, p = map(int, input().split())
+st = list(input())
+restrict = list(map(int, input().split())) # A C G T
+cnt = [0] * 4
+res = 0
 
-    for j in lst:
-        temp = j[:]
-        val, temp = pos(val, temp)
-        sum_lst.append(temp)
-    
-    res1 = list(map(max, sum_lst))
-    res2 = sum(res1)
-    result.append(res2)
+temp = st[0:p]
+for i in temp:
+    cnt[chg(i)] += 1
 
-print(result)
+check = compare(cnt, restrict)
+if sum(check) == 4:
+    res += 1
+
+for i in range(1, s - p + 1):
+    step(st[p - 1 + i], i)
+
+    if sum(check) == 4:
+        res += 1
+
+print(res)
