@@ -3,20 +3,34 @@ sys.stdin = open("input.txt", "r")
 
 # import sys
 # input = sys.stdin.readline
-from collections import deque
-n = int(input())
-data = deque()
 
-for i in range(1, n + 1):
-    data.append(i)
+def my_quick(lst):
+    def sort(start, end):
+        if start >= end:
+            return
+        
+        mid = partition(start, end)
+        sort(start, mid - 1)
+        sort(mid, end)
 
-for i in range(n - 1):
-    data.popleft()
-    data.append(data.popleft())
+    def partition(start, end):
+        pivot = lst[(start + end) // 2]
+        while start <= end:
+            while lst[start] < pivot:
+                start += 1
 
-# while len(data) > 1:
-#     data.popleft()
-#     data.append(data.popleft())
+            while lst[end] > pivot:
+                end -= 1
+        
+            if start <= end:
+                lst[start], lst[end] = lst[end], lst[start]
+                start += 1
+                end -= 1
 
+        return start
 
-print(*data)
+    return sort(0, len(lst) - 1)
+
+lst = [3, 1, 2, 4, 5]
+my_quick(lst)
+print(lst)
