@@ -1,34 +1,24 @@
 # import sys
 # sys.stdin = open("input.txt", "r")
 
-mi = 21e8
-def dfs(level, s):
-    global mi, lst1, lst2, visited1, visited2
+def dfs(level, start):
+    global lst, lst2, mi
 
-    if level == 12:
-        if abs(mi) > abs(s):
-            mi = s
+    if level == 7:
         return
 
-    if level % 2:
-        for i in range(6):
-            if not visited2[i]:
-                visited2[i] = 1
-                dfs(level + 1, s +  lst2[i] * (level + 1))
-                visited2[i] = 0
-    else:
-        for i in range(6):
-            if not visited1[i]:
-                visited1[i] = 1
-                dfs(level + 1, s + lst1[i] * (level + 1))
-                visited1[i] = 0
+    mi = min(mi, abs(sum(lst) - sum(lst2)))
 
+    for i in range(start, 7):
+        lst2[i] = lst[i]
+        lst[i] = 0
+        dfs(level + 1, i)
+        lst[i] = lst2[i]
+        lst2[i] = 0
 
-
-lst1 = [-2, 3, 4, 9, -5, 2]
-lst2 = [4, 7, -3, -6, -1, 2]
-visited1 = [0] * 6
-visited2 = [0] * 6
+mi = 21e8
+lst = [49, 6, 54, 80, 3, 18, 71]
+lst2 = [0] * 7
 
 dfs(0, 0)
 print(mi)
