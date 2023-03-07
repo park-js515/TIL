@@ -1,0 +1,13 @@
+h1{
+    color: red;
+    border: 1px solid black;
+    border-width: medium;
+}
+
+h2{
+    color: blue;
+}
+
+h3{
+    color: cyan;
+}
