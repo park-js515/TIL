@@ -1,0 +1,24 @@
+.templete {
+    width: 491px;
+    height: 664px;
+    box-sizing: border-box;
+    background-color: white;
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.red-box {
+    margin: 5px;
+    height: 50px;
+    background-color: red;
+}
+
+.inner-box {
+    width: 475px;
+    height: 530px;
+    border: 2px solid gray;
+    margin-top: 5px;
+    margin-left: 5px;
+
+}
