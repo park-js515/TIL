@@ -1,24 +1,52 @@
 .templete {
-    width: 491px;
-    height: 664px;
-    box-sizing: border-box;
-    background-color: white;
-    border: 1px solid black;
-    margin-left: 5px;
-    margin-top: 5px;
+  width: 491px;
+  height: 664px;
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid black;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .red-box {
-    margin: 5px;
-    height: 50px;
-    background-color: red;
+  margin: 5px;
+  height: 50px;
+  background-color: red;
 }
 
 .inner-box {
-    width: 475px;
-    height: 530px;
-    border: 2px solid gray;
-    margin-top: 5px;
-    margin-left: 5px;
+  width: 475px;
+  height: 530px;
+  border: 2px solid gray;
+	margin: 5px auto;
+	border-radius: 0.3rem;
 
+}
+
+.sign {
+	font-weight: bold;
+	text-align: center;
+	line-height: 70px;
+	height: 70px;
+	border-bottom: 3.5px solid rgb(81, 62, 202);
+}
+
+.input-box {
+	font-weight: bold;
+	font-size: 1.75rem;
+	height: 80px;
+	margin-top: 15px;
+	margin-bottom: 25px;
+
+
+}
+
+input {
+	width: 90%;
+	height: 3rem;
+	border-radius: 0.2rem;
+}
+
+label {
+	margin: 0 5%;
 }
