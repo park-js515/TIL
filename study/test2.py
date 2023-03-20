@@ -2,58 +2,61 @@ import sys
 # # input = sys.stdin.readline
 sys.stdin = open("input.txt", 'r')
 
-#1211 [S/W 문제해결 기본] 2일차 - Ladder2
-def move(row, col, n):
-    d = [
-        [1, 0], # 아래
-        [0, -1], # 왼쪽
-        [0, 1] # 오른쪽
-    ]
+# 12851
 
-    go = n
+from collections import deque
 
-    if n == 0:
-        for i in [1, 2]:
-            drow, dcol = row + d[i][0], col + d[i][1]
+def bfs1(num):
+    global field, visited, k
 
-            if 0 <= drow < 100 and 0 <= dcol < 100:
-                if lst[drow][dcol] == 1:
-                    go = i
-                    break
+    visited[num] = 1
+    q = deque()
+    q.append(num)
+    ret = 0
 
-    else:
-        i = 0
-        drow, dcol = row + d[i][0], col + d[i][1]
-        if 0 <= drow < 100 and 0 <= dcol < 100:
-            if lst[drow][dcol] == 1:
-                go = i
+    while q:
+        for _ in range(len(q)):
+            now = q.popleft()
 
+            if now == k:
+                return ret
 
-    drow, dcol = row + d[go][0], col + d[go][1]
+            for i in (now - 1, now + 1, now * 2):
+                if 0 <= i < 200000 and not visited[i]:
+                    visited[i] = 1
+                    q.append(i)
 
-    return drow, dcol, go
+        ret += 1
 
-T = 10
-for test_case in range(1, T + 1):
-    _ = int(input())
-    lst = [list(map(int, input().split())) for i in range(100)]
-    mi = 21e7
-    idx = 0
+def bfs2(num):
+    global field, MIN, cnt
 
-    for i in range(100):
-        temp_cnt = 1
-        drow = 0
-        dcol = i
-        if lst[drow][dcol] != 1:
+    q = deque()
+    q.append((num, 0))
+
+    while q:
+        now, time = q.popleft()
+
+        if time > MIN:
             continue
 
-        n = 0
-        while drow != 99:
-            drow, dcol, n = move(drow, dcol, n)
-            temp_cnt += 1
+        if now == k:
+            cnt += 1
+            continue
 
-        if mi > temp_cnt:
-            mi = temp_cnt
-            idx = i
+        time += 1
+        for i in (now - 1, now + 1, now * 2):
+            if 0 <= i <= 200000:
+                q.append((i, time))
 
-    print(f"#{test_case} {idx} {mi}")
+
+n, k = map(int, input().split())
+
+field = [0] * 200001
+visited = [0] * 200001
+MIN = bfs1(n)
+cnt = 0
+bfs2(n)
+
+print(MIN)
+print(cnt)
