@@ -1,53 +1,40 @@
 import sys
 sys.stdin = open("input.txt", "r")
 
-# import sys
-# input = sys.stdin.readline
+import sys
+from collections import deque
 
-def merge_sort(s, e):
-    if e - s < 1:
-        return
 
-    m = int((s + e)/ 2)
-    merge_sort(s, m)
-    merge_sort(m + 1, e)
+def bfs(x):
+    q = deque()
+    q.append(x)
+    visited[x] = 1
 
-    for i in range(s, e + 1):
-        tmp[i] = lst[i]
-    
-    k = s
-    idx1 = s
-    idx2 = m + 1
-    
-    while idx1 <= m and idx2 <= e:
-        if tmp[idx1] > tmp[idx2]:
-            lst[k] = tmp[idx2]
-            k += 1
-            idx2 += 1
-        else:
-            lst[k] = tmp[idx1]
-            k += 1
-            idx1 += 1
-        
-    while idx1 <= m:
-        lst[k] = tmp[idx1]
-        k += 1
-        idx1 += 1
+    while q:
+        x = q.popleft()
+        if x == K:
+            print(visited[x] - 1)
+            ans = []
 
-    while idx2 <= e:
-        lst[k] = tmp[idx2]
-        k += 1
-        idx2 += 1
+            while x != N:
+                ans.append(x)
+                x = v[x]
+            ans.append(N)
+            ans.reverse()
+            print(' '.join(map(str, ans)))
+            return
 
-##############################################
-n = int(input())
-lst = [0]*(n + 1)
-tmp = [0]*(n + 1)
+        for i in [x, -1, 1]:
+            nx = x + i
+            if 0 <= nx < 100001 and not visited[nx]:
+                visited[nx] = visited[x] + 1
+                q.append(nx)
+                v[nx] = x
 
-for i in range(1, n + 1):
-    lst[i] = int(input())
 
-merge_sort(1, n)
+N, K = map(int, input().split())
+visited = [0] * 100001
+v = [0] * 100001
 
-for i in range(1, n + 1):
-    print(lst[i])
+bfs(N)
+
