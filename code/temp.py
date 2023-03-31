@@ -1,24 +1,24 @@
-# import sys
-# sys.stdin = open("input.txt", "r")
+import sys
+sys.stdin = open("input.txt", "r")
 
-def dfs(level, start):
-    global lst, lst2, mi
+def dfs(level):
+    global n, cnt, visited
 
-    if level == 7:
+    if level == n:
+        cnt += 1
         return
+    
+    for i in range(n):
+        if not visited[i]:
+            visited[i] = 1
+            dfs(level + 1)
+            visited[i] = 0
 
-    mi = min(mi, abs(sum(lst) - sum(lst2)))
 
-    for i in range(start, 7):
-        lst2[i] = lst[i]
-        lst[i] = 0
-        dfs(level + 1, i)
-        lst[i] = lst2[i]
-        lst2[i] = 0
+n = int(input())
+visited = [0] * n
+cnt = 0
 
-mi = 21e8
-lst = [49, 6, 54, 80, 3, 18, 71]
-lst2 = [0] * 7
+dfs(0)
+print(cnt)
 
-dfs(0, 0)
-print(mi)
