@@ -395,7 +395,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
     comment_set = CommentSerializer(many=True, read_only=True) # nested !, 다시 표현방법 재정의
 
     class Meta:
-        model = Article
+        model = Article 
         fields = '__all__'
 ```
 
@@ -481,8 +481,8 @@ article = Article.objects.all()
 comment = Comments.objects.all()
 
 # 위 코드를 모두 다음과 같이 변경  
-article = get_list_or_404()
-comment = get_list_or_404()
+article = get_list_or_404(Article)
+comment = get_list_or_404(Comment)
 ```
 
 <hr>
