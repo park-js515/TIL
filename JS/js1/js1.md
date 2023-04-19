@@ -777,7 +777,7 @@ nameSub(1, 2) // ReferenceError: nameSub is not defined
 
 <hr>
 
-![](2023-04-18-10-56-02.png)
+![](2023-04-19-15-26-03.png)
 
 <hr>
 
