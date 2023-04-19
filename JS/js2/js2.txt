@@ -328,7 +328,7 @@ const school={
 console.log(school)
 
 
-// 속석명 축약
+// 속성명 축약
 const friends=['kevin','bob','kate']
 const age=[26,25,27]
 
