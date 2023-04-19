@@ -857,7 +857,7 @@ reduce의 두 번째 매개변수인 initialValue는 누적될 값의 초기값,
 const tests = [90, 90, 80, 77]
 
 // 총합 
-const sum = tests.redcue(function (total, x) {
+const sum = tests.reduce(function (total, x) {
     return total + x
 }, 0) // 여기서 0 생략 가능 결과 : 337
 
