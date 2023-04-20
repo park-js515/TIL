@@ -484,3 +484,115 @@ Object(객체): 키(key)와 값(value)으로 이루어진 속성(property)의 �
 
 1. 디버깅을 위해서 -> 자바스크립트는 명시해서 데이터 타입을 받지 않음  
 2. 스프링, 리액트 -> 할 수 있어야 한다.  
+
+<hr>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li>시</li>
+    <li>공</li>
+    <li>의</li>
+    <li>폭</li>
+    <li>풍</li>
+    <li>은</li>
+    <li>최</li>
+    <li>고</li>
+    <li>야</li>
+    <li>!</li>
+  </ul>
+  <script src="js.js"></script>
+</body>
+</html>
+```
+
+```js
+// queryselectorAll은 완벽한 배열 X
+// Array.from 으로 감싸고 배열 메서드 사용
+// lists.map(li => console.log(li)) // 안되는 코드
+
+Array.from(lists).map(li => console.log(li))
+
+
+// 작성한 innerText만 담긴 배열 만들기
+// 내 답안
+let lst = []
+
+for (let list of lists) {
+    lst.push(list.innerText)
+}
+
+console.log(lst)
+lst.forEach(elem => console.log(elem))
+
+// 예시 답안
+const results = Array.from(lists).map(li => li.textContent)
+console.log(results);
+```
+
+<hr>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class = 'hello hello2' id = 'hello3' style = "color: red;">안녕하세요.</div>
+  <script src="js.js"></script>
+</body>
+</html>
+```
+
+```js
+const div = document.querySelector('div')
+div.setAttribute("style", "color: blue")
+```
+
+<hr>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class = 'hello hello2' id = 'hello3' style = "color: red;">안녕하세요.</div>
+  <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg" alt="">
+  <br>
+  <button>클릭!</button>
+  <script src="js.js"></script>
+</body>
+</html>
+```
+
+```js
+// 버튼 만들기
+// img 태그를 넣을 것
+// 버튼을 클릭했을 경우 기존 이미즤를 다른 img로 갈아치우기
+
+const img = document.querySelector("img")
+const btn = document.querySelector("button")
+const cat_url = "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg"
+const tiger_url = 'https://cdn.pixabay.com/photo/2014/10/22/18/19/tiger-498543__340.jpg'
+
+btn.addEventListener('click', () => {
+    img.setAttribute('src', tiger_url)
+})
+```
