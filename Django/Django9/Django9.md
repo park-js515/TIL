@@ -47,11 +47,11 @@ def article_list(request):
 
 POST: <a href="http://127.0.0.1:8000/api/v1/articles/">http://127.0.0.1:8000/api/v1/articles/</a> 응답 확인  
 
-![](2023-04-17-10-30-52.png)
+![](2023-04-21-08-20-40.png)
 
 새로 생성된 데이터 확인하기  
 
-![](2023-04-17-10-36-39.png)
+![](2023-04-21-08-20-58.png)
 
 <hr>
 
@@ -137,7 +137,9 @@ def article_detail(request, article_pk):
             serializer.save()
             return Response(serializer.data) # 생략 시 기본은 200
 ```
-![](2023-04-17-12-24-45.png)
+<hr>
+
+![](2023-04-21-08-21-57.png)
 
 <hr>
 
@@ -360,7 +362,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 ```
 
-![](2023-04-17-14-08-56.png)
+![](2023-04-21-08-23-44.png)
 
 models.py에서 ```related_name```을 통해 이름 변경이 가능  
 
@@ -405,7 +407,9 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
 두 클래스의 상/하 위치를 변경해야 함  
 
-![](2023-04-17-14-20-44.png)
+<hr>
+
+![](2023-04-21-08-26-43.png)
 
 <hr>
 
@@ -489,7 +493,7 @@ comment = get_list_or_404(Comment)
 
 존재하지 않는 게시글 조회 시 이전에는 500 상태코드를 응답했지만 현재는 404 상태코드를 응답함  
 
-![](2023-04-17-14-38-49.png)
+![](2023-04-21-08-27-55.png)
 
 <hr>  
 
@@ -575,7 +579,14 @@ def comment_list(request, article_pk):
 
 모델같은 것을 건들지 않고 보여지는 것만 바꿀 수는 없을까?
 
-![](2023-04-17-15-17-09.png)
+&nbsp;
+
+![](2023-04-21-08-30-34.png)
+
+&nbsp;
+
+![](2023-04-21-08-30-58.png)
+
 <a href="https://www.django-rest-framework.org/api-guide/serializers/">https://www.django-rest-framework.org/api-guide/serializers/</a> 
 
 <hr>
@@ -605,7 +616,13 @@ class ArticleListSerializer(serializers.ModelSerializer):
         return rep
 ```
 
-![](2023-04-17-15-33-23.png)
+&nbsp;
+
+![](2023-04-21-08-33-02.png)
+
+&nbsp;
+
+![](2023-04-21-08-33-20.png)
 
 ```py
 # articles/serializers.py
@@ -720,8 +737,6 @@ def article_detail(request, article_pk):
 
 > 과연 내 API들은 효율적일까?  
 
-![](2023-04-17-16-10-50.png)
+![](2023-04-21-08-34-09.png)
 
-![](2023-04-17-16-11-11.png)
-
-
+![](2023-04-21-08-34-24.png)
