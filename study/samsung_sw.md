@@ -3,8 +3,10 @@
 ### 14502 연구소 (Gold4)
 
 ```py
-
+import sys
+input = sys.stdin.readline
 from collections import deque
+
 
 def COPY(now_field): # deepcopy 할 때는 사용자 정의함수를 사용하는 것이 더 빠르다.
     global n, m
@@ -79,3 +81,12 @@ MAX = 0
 dfs(0, 0, 0)
 print(MAX)
 ```
+&nbsp;
+
+### 다음 문제
+
+```
+```
+
+&nbsp;
+
