@@ -1,0 +1,223 @@
+1단계 : 한줄 입력 후 출력하기
+		String str = br.readLine();		
+		bw.write(str);
+2단계 : 수 하나 입력받고 출력하기
+		String str = br.readLine();
+		int n = Integer.parseInt(str);
+		bw.write(n + "");
+3단계 : 수 2개 입력받고 합 출력하기
+		int a=Integer.parseInt(br.readLine());
+		int b=Integer.parseInt(br.readLine());
+		bw.write((a+b)+"");
+		// br.readline으로 한줄로 입력 받기 때문에 숫자 1개 쓰고 엔터로 입력해야 함 그러나
+		
+		// 띄어쓰기로 구분되어 있는 데이터 입력시!! String 토크나이저 사용 !!
+		import java.io.*;
+		import java.util.StringTokenizer;
+
+
+		public class Main{
+		public static void main(String[] args)throws IOException{
+		
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		StringTokenizer st=new StringTokenizer(br.readLine());
+		int a=Integer.parseInt(st.nextToken());
+		int b=Integer.parseInt(st.nextToken());
+		
+		bw.write((a+b)+"");
+		
+		
+		br.close();
+		bw.close();
+		
+	}
+}
+
+4단계 : 수 5개를 배열에 입력받고, 전체 곱을 구해서 출력하기
+
+
+5단계 : 문자열 3개 입력받고, 역순으로 출력하기
+
+한번 보여주고 https://colorscripter.com/s/KPGE3gT 링크 공유후 연습할 시간 주기
+답안코드를 안보고 직접 1 ~ 5단계까지 구현할 수있도록 연습해 주세요~ 
+지금 10시 22분인데요~ 10분간 쉬었다가 10시 35분에 다시 연습 시작 !!~
+
+=====[1단계]======
+		String str = br.readLine();		
+		bw.write(str);
+=====[2단계]======
+		String str = br.readLine();
+		int n = Integer.parseInt(str);
+		bw.write(n + "");
+=====[3단계]======
+		String line =br.readLine();
+		StringTokenizer st = new StringTokenizer(line);
+		
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		
+		bw.write((a + b) + " ");
+=====[4단계]======
+		int[] arr = new int[5];
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		for (int i = 0; i<5; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		int gop = 1;
+		for (int i = 0; i<5; i++) {
+			gop *= arr[i];
+		}
+		
+		bw.write(gop + "");
+======[5단계]=====
+		String[] arr = new String[3];
+		for (int i = 0; i<3; i++) {
+			arr[i] = br.readLine();
+		}
+		
+		for (int i = 2; i>=0; i--) {
+			bw.write(arr[i] + " ");
+		}
+
+1. 1번문제 시작
+BufferedReader / Writer 사용해서 문제풀기
+
+==============================================
+디버깅 같이 보기
+단축키 암기
+1. Run 단축키
+2. Breakpoint 걸기 (토글) 
+3. Debug 단축키
+4. Step Over
+5. Terminate
+
+Windows 메뉴 > Preferences > Keys 검색
+
+import java.io.*;
+import java.util.StringTokenizer;
+public class Main{
+	public static void main(String[] args)throws IOException{
+		
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		//5
+		//1 2 3 4 5 입력시
+	
+		int n=Integer.parseInt(br.readLine());
+		StringTokenizer st= new StringTokenizer(br.readLine());
+		int[] arr1=new int[n];
+		for(int x=0; x<n; x++)
+		{
+			arr1[x]=Integer.parseInt(st.nextToken());
+		}
+	
+		
+		//5
+		//12345 입력시
+		int n2=Integer.parseInt(br.readLine());
+		int[] arr2=new int[n2];
+		String str2=br.readLine();
+		for(int x=0;x<n2;x++)
+		{
+			arr2[x]=str2.charAt(x)-'0';
+		}
+		
+		
+		//5
+		//abcde 입력시
+			
+		int n3=Integer.parseInt(br.readLine());
+		char[] arr3=new char[n3];
+		String str3=br.readLine();
+		for(int x=0;x<n3;x++)
+		{
+			arr3[x]=str3.charAt(x);
+		}
+	
+		//5
+		//a b c d e 입력시
+		
+		int n4=Integer.parseInt(br.readLine());
+		char[] arr4=new char[n4];
+		String str4=br.readLine();
+		StringTokenizer st4=new StringTokenizer(str4);
+		
+		for(int x=0;x<n4;x++)
+		{
+			arr4[x]=st4.nextToken().charAt(0);
+		}		
+
+
+		//2 3
+		//3 2 1
+		//6 4 5 입력시
+		
+		StringTokenizer st5=new StringTokenizer(br.readLine());
+		int n5=Integer.parseInt(st.nextToken());
+		int m5=Integer.parseInt(st.nextToken());
+		
+		int[][] arr5=new int[n5][m5];
+		
+		for(int y=0;y<n5;y++)
+		{
+			st=new StringTokenizer(br.readLine());
+			for(int x=0;x<m5;x++)
+			{
+				arr5[y][x]=Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		//2 3
+		//321
+		//645  입력시
+		StringTokenizer st6=new StringTokenizer(br.readLine());
+		int n6=Integer.parseInt(st.nextToken());
+		int m6=Integer.parseInt(st.nextToken());
+		
+		int[][] arr6=new int[n6][m6];
+		
+		for(int y=0;y<n6;y++)
+		{
+			String str=br.readLine();
+			for(int x=0;x<m6;x++)
+			{
+				arr6[y][x]=str.charAt(x)-'0';
+			}
+		}
+		
+		
+		//2 3
+		//abc
+		//def 입력시
+		
+		StringTokenizer st7=new StringTokenizer(br.readLine());
+		int n7=Integer.parseInt(st.nextToken());
+		int m7=Integer.parseInt(st.nextToken());
+		
+		char[][] arr7=new char[n7][m7];
+		
+		for(int y=0;y<n7;y++)
+		{
+			String str=br.readLine();
+			for(int x=0;x<m7;x++)
+			{
+				arr7[y][x]=str.charAt(x);
+			}
+		}
+		
+		
+		
+		
+		
+		int d=1;
+		br.close();
+		bw.close();
+		
+		
+	}
+}
