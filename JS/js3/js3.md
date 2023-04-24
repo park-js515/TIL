@@ -307,6 +307,8 @@ querySelectorAll()에 의해 반환되는 NodeList는 DOM의 변경사항을 실
 
 ![](2023-04-20-11-02-47.png)
 
+[toggle]
+
 <hr>
 
 > [참고] 그 외 다양한 속성 조작 방법  
