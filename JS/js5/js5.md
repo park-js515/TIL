@@ -443,6 +443,81 @@ axios로 요청해보기 (비동기)
 
 ```
 
+<hr>
+
+> axios 다양하게 사용하기  
+
+```html
+<!-- 06_axios.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const URL = 'https://jsonplaceholder.typicode.com/todos/1/'
+    // 1. Axios
+    // 1-1. Axios의 return 값은 Promise
+    const myPromise = axios.get(URL)
+    // console.log(myPromise) // Promise Object
+
+    myPromise // axios.get(URL)로 사용해도 무방하다.
+      .then(response => {
+        // console.log(response.data)
+        return response.data
+      })
+    
+
+    // 1-2. chaining
+    axios.get(URL)
+      .then(response => {
+        console.log(1)
+        console.log(response)
+        return response.data
+      })
+      .then(response => {
+        console.log(2)
+        console.log(response)
+        return response.title
+      }) 
+      .then(response => {
+        console.log(3)
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    
+    // 1-3. 다른 표기법(권장)
+    axios({ // 객체 형식으로 되어있어 가독성도 좋으며, 바꾸기가 편하기에 권장됨  
+      method: 'get', 
+      url: URL,
+    })
+      .then(response => {
+        console.log(response)
+        return response.data
+      }) 
+      .then(response => {
+        console.log(response)
+        return response.title
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  </script>
+</body>
+</html>
+```
+
 <hr>  
 
 > 정리  
@@ -453,7 +528,7 @@ axios는 비동기 데이터 통신을가능하게 하는 라이브러리
 
 <hr>  
 
-# Callback과 Promise  
+### Callback과 Promise  
 
 > 비동기 처리의 단점  
 
@@ -608,4 +683,39 @@ promise 방식은 비동기 처리를 마치 우리가 일반적으로 위에서
   </script>
 </body>
 </html>
+```
+
+<hr>
+
+### Promise 객체 사용하기
+
+<a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise">https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise</a>
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log('Hi')
+
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(function () {
+        console.log('SSAFY')
+        resolve()
+      }, 3000)
+    })
+
+    promise
+    .then(() => console.log('Bye'))
+  </script>
+</body>
+</html>
+
 ```
