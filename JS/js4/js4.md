@@ -112,7 +112,438 @@ Event handler - <mark>addEventLister()</mark>
 </html>
 ```
 
+<hr>
+
+> 값 입력 실습  
+
+input에 입력하면 입력 값을 실시간으로 출력하기  
+
 ```html
 <!-- 02_pg16_input.html -->
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="text-input">
+  <p></p>
+  <script>
+    // 1. input 선택
+    const textInput = document.querySelector('input')
+    // 2. input 이벤트 등록
+    textInput.addEventListener('input', function(event) {
+      console.log(event)
+      // input은 이벤트의 대상
+      // console.log(event.tag)
+      console.log(event.target)
+      // input의 value를 받아오기
+      console.log(event.target.value)
+      
+      // 3. input에 작성한 값을 p 태그에 출력하기
+      const pTag = document.querySelector('p')
+      pTag.innerText = event.target.value
+    })
+  </script>
+</body> 
+</html>
 ```
+
+<hr>
+
+> 복합 실습  
+
+input에 입력하면 입력값을 실시간으로 출력하고  
+버튼을 클릭하면 출력된 값의 클래스를 토글하기  
+
+```html
+<!-- 03_pg18_button_input.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .blue {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1></h1>
+  <button id="btn">클릭</button>
+  <input type="text">
+
+  <script>
+    const btn = document.querySelector('#btn')
+
+    // btn이 클릭되면 함수 실행  
+    btn.addEventListener('click', function() {
+      // h1 태그를 선택해서
+      const h1 = document.querySelector('h1')
+      // 클래스 blue를 토글하기
+      h1.classList.toggle('blue')
+    })
+
+    // input
+    const input = document.querySelector('input')
+    // input에 값이 입력되면 함수 실행  
+    input.addEventListener('input', function(event) { 
+      // h1 태그를 선택해서
+      const h1Tag = document.querySelector('h1')
+      // input값을 태그의 컨텐츠로 채우기  
+      h1Tag.innerText = event.target.value
+    })
+  </script>
+
+</body>
+</html>
+```
+
+<hr>  
+
+> addEventListener 정리  
+
+"~하면 ~한다."  
+- "클릭하면, 경고창을 띄운다."
+- "특정 Event가 발생하면, 할 일(콜백 함수)을 등록한다."  
+
+<hr>  
+
+### Event 전파와 취소  
+
+> Event 전파란?  
+
+DOM 요소에서 발생한 이벤트가 상위 노드에서 하위 노드 혹은, 하위 노드에서 상위 노드로 전파되는 현상을 의미  
+
+addEventListener 메서드를 사용하여 전파 방식을 제어할 수 있음. 기본 값은 하위 노드에서 상위 노드로 전파되는 방식을 사용 - Event Bubblding  
+
+또한, 이러한 이벤트 전파 상황을 필요에 따라 제어할 수도 있음  
+
+<hr>  
+
+> event.<mark>preventDefault()</mark>  
+
+현재 Event의 기본 동작을 중단  
+
+HTML 요소의 기본 동작을 작동하지 않게 막음  
+
+HTML 요소의 기본 동작 예시  
+- a tag: 클릭 시 특정 주소로 이동  
+- form 태그: form 데이터 전송  
+
+<hr>  
+
+### Event 취소 실습  
+
+> 이벤트 취소 실습  
+
+웹 페이지 내용을 복사하지 못하도록 하기  
+
+
+
+```html
+<!-- 04_pg25_prevent.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <h1>정말 중요한 내용</h1>
+  </div>
+  
+  <script>
+    const h1 = document.querySelector('h1')
+    h1.addEventListener('copy', function(event){
+      console.log(event)
+      event.preventDefault()
+      alert("복사할 수 없습니다.")
+    })
+  </script>
+
+</body>
+</html>
+```
+
+<hr>
+
+[번외] 이벤트 전파 상세하게 알아보기(중요!)  
+
+```html
+<!-- 04_pg22_event.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      background-color: #ccc;
+      padding: 20px;
+      display: block;
+    }
+
+    p {
+      background-color: #aaa;
+      padding: 20px;
+      display: block;
+    }
+
+    span {
+      background-color: #888;
+      padding: 20px;
+      display: block;
+    }
+
+    section {
+        background-color: #4477AA;
+        padding: 0 10px 30px 20px;
+        margin: 50px 0 0 0;
+    }
+
+    section:before {
+        background-color: #114477;
+        padding: 5px;
+        margin: 0 0 0 -20px;
+        border-bottom: 2px solid #002244;
+        border-bottom-right-radius: 5px;
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        content:"결과 콘솔";
+    }
+  </style>
+</head>
+<body>
+  <div id="divTag">
+    DIV영역
+    <p id="pTag">
+        P영역
+        <span id="spanTag">SPAN영역</span>
+    </p>
+</div>
+
+<section id="console"><br></section>
+
+<script>
+  const divTag = document.querySelector('#divTag')
+  
+  const pTag = document.querySelector('#pTag')
+  const spanTag = document.querySelector('#spanTag')
+  const consoleSection = document.querySelector('#console')
+
+  divTag.addEventListener('click', function() {
+    const message = document.createElement("li")
+    message.innerText = "div 클릭"
+    consoleSection.append(message)
+    // consoleSection.innerHTML += "<br> div 클릭"
+  })
+
+  pTag.addEventListener('click', function() {
+    // consoleSection.innerHTML += "<br> p 클릭"
+    const message = document.createElement("li")
+    message.innerText = "p 클릭"
+    consoleSection.append(message)
+  })
+
+  spanTag.addEventListener('click', function() {
+    const message = document.createElement("li")
+    message.innerText = "span 클릭"
+    consoleSection.append(message)
+
+    // 상위로 이벤트가 전파되지 않도록 중단한다.
+    event.stopPropagation();
+
+    //상위 뿐 아니라 같은 레벨로도 이벤트가 전파되지 않도록 중단한다.
+    event.stopImmediatePropagation();
+    
+    
+  })
+  
+  // span 태그에 2번째 이벤트 등록
+  spanTag.addEventListener('click', function() {
+    const message = document.createElement("li")
+    message.innerText = "span 클릭2"
+    consoleSection.append(message)
+
+    // 상위로 이벤트가 전파되지 않도록 중단한다.
+    event.stopPropagation();
+
+  })
+</script>
+</body>
+</html>
+```
+
+<hr>  
+
+### Event 종합 실습  
+
+> 종합 실습 1
+
+버튼을 클리갛면 랜덤 로또 번호 6개 출력하기  
+
+```html
+<!-- 05_pg28_lotto.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트</title>
+  <style>
+    /* 스타일은 수정하지 않습니다. */
+    .ball {
+      width: 10rem;
+      height: 10rem;
+      margin: .5rem;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 10rem;
+      font-size: xx-large;
+      font-weight: bold;
+      color: white;
+    }
+    .ball-container {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <h1>로또 추천 번호</h1>
+  <button id="lotto-btn">행운 번호 받기</button>
+  <div id="result"></div>
+
+  <!-- lodash를 참고하자 -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script> 
+  <script>
+    // 버튼을 클릭하면 로또 번호 뽑아주기  
+    const btn = document.querySelector('#lotto-btn')
+
+    btn.addEventListener('click', function() {
+      const ballContainer = document.createElement('div')
+      ballContainer.classList.add('ball-container')
+
+      // 로또 숫자 6개 뽑기  
+      const numbers = _.sampleSize(_.range(1, 46), 6)
+      // console.log(numbers)
+
+      numbers.forEach(number => {
+        const ball = document.createElement('div')
+        ball.classList.add('ball')
+        ball.innerText = number
+        ball.style.backgroundColor = 'crimson'
+
+        // ball을 ballContainer에 넣어주기
+        ballContainer.appendChild(ball)
+      })
+
+      // ball 6개 ballContainer에 들어가 있음
+      const result = document.querySelector('#result')
+      result.appendChild(ballContainer)
+    })
+
+  </script>
+</body>
+</html>
+```
+
+<hr>
+
+> [참고] lodash  
+
+모듈성, 성능 및 추가 기능을 제공하는 JavaScript 유틸리티 라이브러리  
+
+array, object 등 자료 구조를 다룰 때 사용하는 유용하고 간편한 유틸리티 함수들을 제공  
+
+함수 예시  
+- reverse, sortBy, range, random ...
+
+<a href="https://lodash.com/">https://lodash.com/</a>  
+
+<hr>
+
+> 종합 실습 2  
+
+CREATE, READ 기능을 충족하는 todo app 만들기  
+
+```html
+<!-- 06_pg32_todo.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="#">
+    <input type="text" class="inputData">
+    <input type="submit" value="Add">
+  </form>
+  <ul></ul>
+
+  <script>
+    const formTag = document.querySelector('form')
+
+    const addTodo = function (event) {
+      event.preventDefault() // form 제출 기능 막기
+
+      const inputTag = document.querySelector('.inputData')
+      const data = inputTag.value
+
+      if (data.trim()) { // 데이터가 공백이 아니라면
+        const liTag = document.createElement('li')
+        liTag.innerText = data
+  
+        const ulTag = document.querySelector('ul')
+        ulTag.appendChild(liTag)
+  
+        event.target.reset()
+      }
+      else {  
+        alert("할 일을 입력하세요.")
+        event.target.reset()
+      }
+
+    }
+
+    formTag.addEventListener('submit', addTodo)
+  </script>
+</body>
+</html>
+```
+
+<hr>  
+
+> [참고] this와 addEventListener
+
+addEventListener에서 콜백 함수는 특별하게 function 키워드의 경우 addEventListener를 호출한 대상을 (event.target) 뜻함  
+
+반면 화살표 함수의 경우 상위 스코프를 지칭하기 때문에 window 객체가 바인딩 됨  
+
+결론  
+- "addEventListener의 콜백 함수는 function 키워드를 사둉하기"  
+
+&nbsp;
+
+![](2023-04-25-11-32-55.png)
