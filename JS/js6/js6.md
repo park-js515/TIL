@@ -387,7 +387,7 @@ Axios는 손쉽게 XHR을 보내고 응답 결과를 Promise 객체로 반환해
         
         ... 
         const followersCountTag = document.querySelector('#followers-count')
-        const follweringsCountTag = document.querySelector('#followings-count')
+        const followingsCountTag = document.querySelector('#followings-count')
       })
   </script>
 ```
@@ -436,7 +436,7 @@ view 함수에서 응답한 연산 결과를 사용해 각 태그의 인원 수 
         const followingsCount = response.data.followings_count
 
         followersCountTag.innerText = followersCount
-        follweringsCountTag.innerText = followingsCount
+        followingsCountTag.innerText = followingsCount
 
         ...
     })
@@ -545,7 +545,7 @@ form.addEventListener('submit', function(event) {
         const followBtn = document.querySelector('#follow-form > button')
 
         const followersCountTag = document.querySelector('#followers-count')
-        const follweringsCountTag = document.querySelector('#followings-count')
+        const followingsCountTag = document.querySelector('#followings-count')
 
         followBtn.classList.toggle('btn-secondary')
         followBtn.classList.toggle('btn-primary')
@@ -554,7 +554,7 @@ form.addEventListener('submit', function(event) {
         const followingsCount = response.data.followings_count
 
         followersCountTag.innerText = followersCount
-        follweringsCountTag.innerText = followingsCount
+        followingsCountTag.innerText = followingsCount
 
         if (isFollowed === true) {
             // 팔로우 상태일 때는 버튼에 언팔로우로 나타나야 함
