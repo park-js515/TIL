@@ -33,3 +33,21 @@ while e:
 
 print(ans)
 ```
+
+### 분할정복  
+
+python의 pow 함수는 분할 곱을 제공한다.  
+
+```py
+# https://www.acmicpc.net/problem/15824
+
+n = int(input())
+lst = sorted(map(int, input().split()))
+ans = 0
+
+MOD = 1000000007
+for i, x in enumerate(lst):
+    ans = (ans + x * (pow(2, i, MOD) - pow(2, n - i - 1, MOD))) % MOD
+
+print(ans)
+```
