@@ -427,7 +427,7 @@ Lexical scope
 ```js
 let x = 1 // global
 
-functoin first() {
+function first() {
     let x = 10
     second()
 }

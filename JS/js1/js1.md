@@ -327,7 +327,7 @@ python과 다르게 Javascript는 변를 선언하는 키워드가 정해져 있
 
 ```js
 let foo // 선언
-consol.log(foo) // undefined
+console.log(foo) // undefined
 
 foo = 11 // 할당
 console.log(foo) // 11
@@ -966,7 +966,7 @@ const name = 'manager'
 if (name == 'admin') {
     console.log('관리자님 환영합니다.')
 }
-elif (name == "manger") {
+else if (name == "manger") {
     console.log("매니저님 환영합니다.")
 }
 else {
