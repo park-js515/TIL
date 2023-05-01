@@ -82,7 +82,7 @@ HTML의 기본 속성이 아닌 Vue가 제공하는 특수 속성의 값으로 d
 
 <hr>  
 
-### Diretives  
+### Directives  
 
 > Directives 기본 구성  
 
