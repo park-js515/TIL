@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <!-- <a v-bind:href="URL">어디로 갈까욧?</a> -->
+      <a :href="URL">어디로 갈까욧?</a>
+    </div>
+    <!-- <button v-on:click="setURLtoNaver">네이버</button> -->
+    <button @click="setURLtoNaver">네이버</button>
+    <!-- <button v-on:click="setURLtoGoogle">구글</button> -->
+    <button @click="setURLtoGoogle">구글</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        URL: "",
+      },
+      methods: {
+        setURLtoNaver() {
+          this.URL = "https://naver.com"
+        },
+        setURLtoGoogle() {
+          this.URL = "https://google.com"
+        },
+      },
+    })
+  </script>
+</body>
+</html>

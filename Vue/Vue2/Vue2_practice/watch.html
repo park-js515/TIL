@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <span>Value = {{ value }}</span>
+    <br>
+    <span>changeValue = {{ changeValue }}</span>
+    <button @click="change">변경</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        value: 0,
+        changeValue: "",
+      },
+      watch: {
+        value() {
+          console.log(this.value, this.changeValue)
+          this.changeValue = this.value
+        },
+      },
+      methods: {
+        change() {
+          this.value++
+        },
+      },
+    })
+  </script>
+</body>
+</html>

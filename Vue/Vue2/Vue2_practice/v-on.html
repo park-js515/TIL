@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div>{{ text }}</div>
+    <!-- <button v-on:click="changeText">클릭하면 글자가 변해!</button> -->
+    <button @click="changeText">클릭하면 글자가 변해!</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        text: "오늘의 데자와빵 주인공은?"
+      },
+      // methods: {
+      //   changeText() {
+      //     this.text = "쨔잔 김웅서 교육생 축하합니다!"
+      //   }
+      // },
+      methods: {
+        changeText: function(){
+          this.text = "쨔잔 김승영 교육생 축하합니다!"
+        }
+      },
+      
+    })
+  </script>
+</body>
+</html>

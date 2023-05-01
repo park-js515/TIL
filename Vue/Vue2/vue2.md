@@ -477,6 +477,9 @@ method에 인자를 넘기는 방법은 일반 함수를 호출할 때와 동일
 </script>
 ```
 
+[이벤트 목록 확인하기]
+<a href="https://www.w3schools.com/js/js_events_examples.asp">https://www.w3schools.com/js/js_events_examples.asp</a>
+
 <hr>
 
 > v-bind  
