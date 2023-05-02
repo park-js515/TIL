@@ -10,7 +10,7 @@ __del__ : 소멸자 메서드
 
 
 # 코딩 심화
-해쉬, 우선순위 큐
+분할 정복, SCC(Strongly Connected Cycle)
 
 # 백업
 code --list-extensions > extensions.list
