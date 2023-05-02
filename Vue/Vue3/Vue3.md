@@ -100,7 +100,7 @@ Vue 버전 선택 (Vue2)
 node.js 환경의 여러 의존성 모듈  
 
 python의 venv와 비슷한 역할을 함(용량이 매우 크다)  
-- 따라서 .gitignore에 넣어주어여야 하며, Vue 프로젝트를 생성하면 자동으로 추가됨  
+- 따라서 .gitignore에 넣어주어야 하며, Vue 프로젝트를 생성하면 자동으로 추가됨  
 
 <hr>  
 
@@ -139,7 +139,7 @@ python의 venv와 비슷한 역할을 함(용량이 매우 크다)
 
 모듈 간의 의존성 문제를 해결하기 위한 도구  
 
-프로젝트에 필요한 모든 모듈을 매핑하고 내부적으로 종속성 그래프르 빌드함  
+프로젝트에 필요한 모든 모듈을 매핑하고 내부적으로 종속성 그래프를 빌드함  
 
 ![](2023-05-02-09-19-49.png)  
 
@@ -213,7 +213,7 @@ node-lock.json
 
 node_modules에 설치되는 모듈과 관련된 모든 의존성을 설정 및 관리  
 
-협업 및 배포 환겨엥서 정확히 동일한 종속성을 설치하도록 보장하는 표현  
+협업 및 배포 환경에서 정확히 동일한 종속성을 설치하도록 보장하는 표현  
 
 사용할 패키지의 버전을 고정  
 
@@ -339,7 +339,7 @@ index.html에서 for 문을 통해 여러 게시글들을 하나의 형식으로
 
 <hr>  
 
-> SFC (Sing File Componet)  
+> SFC (Single File Componet)  
 
 하나의 <mark>.vue</mark> 파일이 하나의 <mark>Vue instance</mark>이고, 하나의 <mark>컴포넌트</mark>이다.  
 - 즉, Single File Component  
@@ -431,7 +431,7 @@ Vue CLI를 실행하면 이미 HelloWorld.vue 라는 컴포넌트가 생성되�
 3. template에 요소 추가  
 
 <font color="red">
-주의) template 안엔는 반드시 하나의 요소만 추가 가능  <br>
+주의) template 안에는 반드시 하나의 요소만 추가 가능  <br>
 
 - 비어  있어도 안됨  
 - 해당 요소 안에 추가 요소를 작성해야 함  
@@ -515,7 +515,7 @@ export default {
 
 instance name은 instance 생성 시 작성한 name  
 
-`@`는 src의 sortcut  
+`@`는 src의 shortcut  
 
 `vue`는 생략 가능  
 
