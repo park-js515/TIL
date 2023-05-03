@@ -616,6 +616,8 @@ emit
 
 이를 Lifecycle Hooks이라고 함  
 
+[참고] 탄생 => mount => update => destroy
+
 ![](2023-05-03-10-49-20.png)  
 
 <hr>  
@@ -634,7 +636,7 @@ data, computed 등의 설정이 완료된 상태
 
 서버에서 받은 데이터를 vue instance의 data에 할당하는 로직을 구현하기 적합  
 
-단, mount되지 않아 요소에 접근할 수 없음  
+단, mount되지 않아 (HTML)요소에 접근할 수 없음  
 
 <br>  
 
