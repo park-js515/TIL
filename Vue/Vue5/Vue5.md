@@ -626,4 +626,15 @@ Vuex는 공유된 상태 관리를 처리하는데 유용하지만, 개념에 �
 
 즉, 필요한 순간이 왔을 때 사용하는 것을 권장  
 
+<hr>
 
+```vue
+<!-- 중요할 거 같은 표현! -->
+<template>
+<input type="text" v-model.trim="todoTitle" @keyup.enter="createTodo">
+</template>
+
+<template>
+<TodoListItem v-for="(todo, index) in todos" :key="index" :todoitem="todo"/>
+</template>
+```
