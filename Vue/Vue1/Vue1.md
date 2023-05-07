@@ -305,7 +305,6 @@ Vue로 작업을 시작하기 위하여 CDN을 가져와야 함
 
 Django == Python Web FrameWrok  
 
-Django == Python Web Framework  
 - pip install  
 
 Vue == JS Front-end-Framework  
