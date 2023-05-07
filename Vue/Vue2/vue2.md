@@ -745,28 +745,28 @@ Array, Object의 내부 요소 변경 감지를 위해서는 `deep` 속성 추�
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <script>
-    const app = new Vue({
-      el: '#app',
-      data: {
-        myObj: {completed: true}
-      },  
-      methods: {
-        itemChange: function () {
-          this.myObj.completed = !this.myObj.completed
-        }
-      },
-      watch: {
-        myObj: {
-          handler: function (val) {
-            console.log(val)
-          },
-          // 이 부분!
-          deep: true // object의 내부 요소 변화를 확인하기 위해서
-        },
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      myObj: {completed: true}
+    },  
+    methods: {
+      itemChange: function () {
+        this.myObj.completed = !this.myObj.completed
       }
-    })
-  </script>
+    },
+    watch: {
+      myObj: {
+        handler: function (val) {
+          console.log(val)
+        },
+        // 이 부분!
+        deep: true // object의 내부 요소 변화를 확인하기 위해서
+      },
+    }
+  })
+</script>
 ```
 
 <hr>
