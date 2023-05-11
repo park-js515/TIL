@@ -576,6 +576,8 @@ Server에서는 200을 반환하였으나 Client Console에서는 Error를 확�
 
 보안상의 이유로 브라우저는 <mark>동일 출처 정책(SOP: Same-Origin Policy)</mark>에 의해 다른 출처의 리소스와 상호작용하는 것을 제한함  
 
+![](2023-05-11-13-43-00.png)
+
 <hr>  
 
 > SOP(Same-Origin Policy)  
@@ -596,7 +598,7 @@ Server에서는 200을 반환하였으나 Client Console에서는 Error를 확�
 Same Origin 예시  
 - 아래의 세 영역이 일치하는 경우에만 동일한 출처로 인정  
 
-![](2023-05-11-11-24-31.png)  
+<img src="./2023-05-11-13-46-46.png" width='50%'>
 
 <br>  
 
