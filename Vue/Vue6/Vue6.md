@@ -305,7 +305,7 @@ Vuex store의 상태를 컴포넌트의 데이터에 매핑할 때 사용
 2. Spread operator(...)을 사용하여 mapState를 전개  
 3. mapState 내부에 불러오고자 하는 값을 정의  
 화살표 함수를 사용하여 message key에 state의 message 값을 할당   
-- key 값은 컴포넌트에서 사용하고자하는 다른 이름으로 변경하여 사용할 수 있음  
+- key 값은 컴포넌트에서 사용하고자 하는 다른 이름으로 변경하여 사용할 수 있음  
 
 ```vue
 <template>
