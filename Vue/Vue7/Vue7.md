@@ -621,7 +621,7 @@ export default {
 
 > router에 컴포넌트를 등록하는 또 다른 방법  
 
-router/index.js에 컴포넌트를 드록하는 또 다른 방식이 주어지고 있음 (about)  
+router/index.js에 컴포넌트를 등록하는 또 다른 방식이 주어지고 있음 (about)  
 
 ![](2023-05-09-10-42-55.png)  
 
