@@ -614,15 +614,15 @@ def article_list(request):
 <template>
   <div>
     <h1>Sign Up Page</h1>
-    <form>
+    <form @submit.prevent="signUp">
       <label for="username">username : </label>
-      <input type="text" id="username"><br>
+      <input type="text" id="username" v-model="username"><br>
 
       <label for="password1"> password : </label>
-      <input type="password" id="password1"><br>
+      <input type="password" id="password1" v-model="password1"><br>
 
       <label for="password2"> password confirmation : </label>
-      <input type="password" id="password2">
+      <input type="password" id="password2" v-model="password2">
       
       <input type="submit" value="SignUp">
     </form>
@@ -717,4 +717,694 @@ export default {
 </script>
 ```
 
-이후에 계속해서
+<br>  
+
+`store/index.js` 주석 해제  
+
+payload가 가진 값을 할당  
+
+AJAX 요청으로 응답받은 데이터는 다수의 컴포넌트에서 사용해야 함  
+
+state에 저장할 것  
+
+<br>  
+
+`store/index.js` 주석 해제  
+
+token을 저장할 위치 확인  
+
+mutations을 통해 state 변화
+
+```js
+// store/index.js
+
+export default new Vuex.Store({
+  state: {
+    ...
+    token: null
+  },
+  mutations: {
+    ...
+    SIGN_UP(state, token) {
+      state.token = token
+    }
+  },
+  actions: {
+    ...
+    signUp(context, payload) {
+      const username = payload.username
+      const password1 = payload.password1
+      const password2 = payload.password2
+      
+      axios({
+        method: "POST",
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+          username, password1, password2
+        }
+      })
+      .then((response) => {
+        context.commit('SIGN_UP', response.data.key)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+  },
+})
+```
+
+<br>  
+
+요청 결과 확인  
+- 정상 응답 확인  
+
+![](2023-05-16-09-13-09.png)  
+
+<hr>  
+
+> 토큰 관리  
+
+게시물 전체 조회와 달리, 인증 요청의 응답으로 받은 Token은 매번 요청하기 힘듦  
+- 비밀번호를 항상 보관하고 있을 수 없음  
+- localStorage에 token 저장을 위해 `vuex-persistedstate` 활용  
+
+<br>  
+
+설치  
+
+```bash
+$ npm install vuex-persistedstate
+```
+
+`store/index.js` 주석 해제
+
+```js
+// store/index.js  
+
+import createrPersistedState from 'vuex-persistedstate'  
+
+export default new Vuex.Store({
+  plugins: [
+    createPersistedState(),
+  ]
+})
+```
+<br>  
+
+결과 확인  
+- localSorage에 저장  
+
+![](2023-05-16-09-18-51.png)  
+
+<hr>  
+
+[참고] User 인증 정보를 localStorage에 저장해도 되는가?  
+
+안전한 방법으로 볼 수는 없음  
+
+따라서 vuex-persistedstate는 아래의 2가지 방법을 제공  
+1. 쿠키를 사용하여 관리  
+2. 로컬 저장소를 난독화하여 관리  
+
+실습의 편의를 위해 localStorage를 사용할 예정  
+
+<hr>  
+
+### Login Request  
+
+> Login Page  
+
+`views/LoginView.vue` 코드 확인  
+- 회원가입 로직과 동일  
+- Server에서 정의한 field명 확인  
+    1. username
+    2. password
+
+```vue
+// views/LoginView.vue
+
+<template>
+  <div>
+    <h1>LogIn Page</h1>
+    <form @submit.prevent="logIn">
+      <label for="username">username : </label>
+      <input type="text" id="username" v-model="username"><br>
+
+      <label for="password"> password : </label>
+      <input type="password" id="password" v-model="password"><br>
+
+      <input type="submit" value="logIn">
+    </form>
+  </div>
+</template>
+```
+
+<br>  
+
+`router/index.js` 주석 해제  
+
+```js
+// roter/index.js  
+
+... 
+import LoginView from '@/views/LoginView'
+...
+
+const routes = [
+  ...,
+  {
+    path: '/login',
+    name: 'LogInView',
+    component: LogInView
+  },
+]
+```
+
+<br>  
+
+`src/App.vue` 주석 해제  
+- 파이프 라인 등을 활용하여 링크간 공간 확보  
+
+```vue
+// /src/App.vue
+
+<template>
+  <div id="app">
+    <nav>
+      <router-link :to="{ name: 'ArticleView' }">Articles</router-link> | 
+      <router-link :to="{ name: 'SignUpView' }">SignUpPage</router-link> | 
+      <router-link :to="{ name: 'LogInView' }">LogInPage</router-link>
+    </nav>
+    <router-view/>
+  </div>
+</template>
+```
+
+<br>  
+
+`views/LoginView.vue` 결과 확인  
+
+![](2023-05-16-09-47-56.png)
+
+<hr>  
+
+> Login Request  
+
+signUp과 다른 점은 password1 password2가 password로 바뀐 것 뿐  
+
+요청을 보내고 응답을 받은 Token을 state에 저장하는 것까지도 동일  
+- mutationㄴ가 처리해야하는 업무가 동일  
+- `SIGN_UP mutations`를 `SAVE_TOKEN mutations`로 대체 가능  
+
+<br>
+
+`views/LoginView.vue` 코드 확인  
+- 사용자의 입력 값을 하나의 객체 payload에 담아 전달
+
+```vue
+// src/App.vue  
+
+<script>
+export default {
+  name: 'LogInView',
+  data() {
+    return {
+      username: "",
+      password: "",
+    }
+    },
+  methods: {
+    login() {
+      const username = this.username
+      const password = this.password
+
+      const payload = {
+        username, password
+      }
+
+      this.$store.dispatch('login', payload)
+    }
+  }
+}
+</script>
+```
+
+<br>  
+
+`store/index.js` 주석 해제  
+
+payload가 가진 값ㅇ르 각각 할당  
+
+AJAX 요청으로 응답답은 데이터는 다수의 컴포넌트에서 사용해야 함  
+
+state에 저장할 것  
+- 이 때, mutations `SAVE_TOKEN` 호출 확인  
+
+```js
+// store/index.js  
+
+export default {
+  ...,
+  actions: {
+    ...,
+    logIn(context, payload) {
+      const username = payload.username
+      const password = payload.password
+
+      axios({
+          method: "POST",
+          url: `${API_URL}/accounts/login/`,
+          data: {
+            username, password
+          }
+      })
+      .then((response) => {
+        context.commit('SAVE_TOKEN', response.data.key)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+  }
+}
+```
+
+<br>  
+
+`store/index.js` 주석 해제  
+
+payload가 가진 값을 각각 할당  
+
+AJAX 요청을 응답 받은 데이터는 다수의 컴포넌트에서 사용해야 함  
+
+state에 저장할 것  
+- <font color="red">확인) signUP이 호출할 mutations도 함께 변경</font>  
+
+```js
+// store/index.js
+
+export default {
+  ...,
+  mutations: {
+    // SIGN_UP(state, token) {
+    // state.token = token
+    // },
+    // signup & login -> 완료하면 토큰 발급  
+    SAVE_TOKEN(state, token) {
+      state.token = token
+    }
+  },
+  actions: {
+    signUp(context, payload) {
+      ...
+      axios({
+        ...
+      })
+      .then((response) => {
+        // context.commit('SIGN_UP', response.data.key)
+        context.commit('SAVE_TOKEN', response.data.key)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+```
+
+<br>  
+
+최종 결과 확인  
+- 정확한 결과 확인을 위해 기존 토큰 삭제 추천  
+- 정상 작동 확인  
+
+![](2023-05-16-10-59-23.png)  
+
+<hr>
+
+### IsAuthenticated in Vue  
+
+> IsAuthenticated in Vue  
+
+회원가입, 로그인 요청에 대한 처리 후 state에 저장된 Token을 직접 확인하기 전까지 인증여부 확인 불가  
+
+인증되지 않았을 시 게시글 정보를 확인할 수 없으나 이유를 알 수 없음  
+- 로그인 여부를 확인할 수 있는 수단이 없음  
+
+<br>  
+
+`store/index.js` 주석 해제  
+
+로그인 여부 판별 코드 확인  
+- Token이 있으면 true 반환, 없으면 false 반환  
+
+```js
+// store/index.js  
+
+export default new Vuex.Store({
+  ...
+  getters: {
+    isLogin(state) {
+      return state.token ? true : false
+    }
+  }
+})
+```
+
+<hr>  
+
+`views/ArtricleView.vue` 주석 해제  
+- isLogin 정보를 토대로 게시글 정보를 요청할 것인지, LoginView로 이동시킬 것인지 결정  
+
+```vue
+// views.AritcleView.vue
+
+<script>
+import ArticleList from '@/components/ArticleList.vue'
+
+export default {
+  name: 'ArticleView',
+  components: {
+    ArticleList,
+  },
+  computed:{
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  },
+  created() {
+    this.getArticles()
+  },
+  methods: {
+    getArticles() {
+      // 로그인이 되어 있으면 getAritcles action 실행
+      // 로그인이 안되어 있으면 login 페이지로 이동  
+
+      if (this.isLogin) {
+        this.$store.dispatch('getArticles')
+      }
+      else {
+        alert("로그인이 필요한 페이지입니다.")
+        this.$router.push({ name: "LogInView" })
+      }
+    }
+  }
+}
+</script>
+```
+
+<br>  
+
+`store/index.js` 주석 해제  
+
+단, store/index.js에서 $router에 접근할 수 없음  
+- router를 import 해야 함(중요!)  
+
+```js
+// store.index.js
+
+import router from '../router'
+...
+
+export default new Vuex.Store({
+  mutations: {
+    ...
+    // signup & login -> 완료하면 토큰 발급  
+    SAVE_TOKEN(state, token) {
+      state.token = token
+      router.push({ name: 'ArticleView' })  // store/index.js $router 접근 불가 -> import 필요
+    }
+  }
+})
+```
+
+<br>  
+
+결과 확인  
+
+1. localStorage에서 token 삭제 후, 새로고침  
+2. Articles 링크 클릭 시 LoginPage로 이동  
+인증되지 않은 사용자를 LoginPage로 이동 시키는 데 성공  
+
+![](2023-05-16-11-07-15.png)  
+
+<hr>  
+
+> 로그인 후, Articles에서는 ...
+
+인증은 받았지만 게시글 조회 시 인증 정보를 담아 보내고 있지 않음  
+
+![](2023-05-16-11-07-59.png)  
+
+<br>  
+
+원인  
+- 로그인은 했으나 Django에서는 로그인한 것으로 인식하지 못함  
+    - 발급받은 tokend을 요청으로 보내지 않았기 때문  
+
+<hr>  
+
+### Request with Token  
+
+> 시작하기 전  
+
+이제 인증 여부를 확인하기 위한 Token이 준비되었으니, headers HTTP에 Token을 담아 요청을 보내면 된다.  
+
+<hr>  
+
+> Articles List Read with Token  
+
+`store/index.js` 주석 해제  
+- headers에 Authorizations와 token 추가  
+
+```js
+
+...
+  actions: {
+    getArticles(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/articles/`,
+        headers: { 
+          Authorization: `Token ${context.state.token}`
+         }
+      })
+        .then((res) => {
+        // console.log(res, context)
+          context.commit('GET_ARTICLES', res.data)
+        })
+        .catch((err) => {
+        console.log(err)
+      })
+    },
+  }
+...
+```
+
+> 결과 확인  
+- 404 발생 원인은 view 함수가 그렇게 처리하기로 하였기 때문  
+- 게시글 생성 기능 완성 후, 다시 결과 확인  
+
+```py
+# articles/views.py
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated]) # 게시글 조회, 생성은 권한이 필요하게 만듦
+def article_list(request):
+    if request.method == 'GET':
+        # articles = Article.objects.all()
+        articles = get_list_or_404(Article)
+        serializer = ArticleListSerializer(articles, many=True)
+        return Response(serializer.data)
+    
+    ...
+```
+
+<hr>  
+
+> Articles Create with token  
+
+`views/CreateView.vue` 주석 해제  
+- headers에 Authorizations와 token 추가  
+
+```vue
+// views/CreateView.vue  
+
+<script>
+export default {
+  ...
+  methods: {
+    createArticle() {
+      const title = this.title
+      const content = this.content
+
+      if (!title) {
+        alert('제목 입력해주세요')
+        return
+      } else if (!content){
+        alert('내용 입력해주세요')
+        return
+      }
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/v1/articles/`,
+        data: { title, content},
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then(() => {
+        // console.log(res)
+        this.$router.push({name: 'ArticleView'})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  }
+}
+</script>
+```
+
+<br>  
+
+결과 확인  
+- 정상 작동 확인  
+
+![](2023-05-16-11-15-41.png)  
+
+<hr>  
+
+> Create Article with User  
+
+`articles/models.py` 주석 해제  
+
+게시글을 작성 시 User 정보를 포함하여 작성하도록 수정  
+- User 정보를 Vue에서도 확인가능하도록 정보 제공  
+
+```py
+# articles/models.py
+
+from django.db import models
+from django.conf import settings
+
+# Create your models here.
+class Article(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+```
+
+<br>
+
+`makemigrations` and `migrate`  
+- 기존 게시글에 대한 User 정보 default 값 설정  
+
+![](2023-05-16-11-18-27.png)
+
+<br>  
+
+`articles/serializers.py` 주석 해제 및 수정  
+- ArticlesListSerializer에서 user는 사용자가 작성하지 않음 -> fields에 추가  
+- AritclesSerializer에서 user는 읽기 전용으로 제공  
+- username을 확인할 수 있도록 username field 정의 필요  
+    - comment_count field 정의 방법 참고  
+
+<br>  
+
+`articles/serializers.py` 주석 해제 및 수정  
+
+```py
+# articles/serializers.py  
+
+from rest_framework import serializers
+from .models import Article, Comment
+
+
+class ArticleListSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = Article
+        # fields = ('id', 'title', 'content')
+        fields = ('id', 'title', 'content', 'user', 'username')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+        read_only_fields = ('article',)
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    comment_set = CommentSerializer(many=True, read_only=True)
+    comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = Article
+        fields = '__all__'
+        read_only_fields = ('user', )
+```
+
+<br>  
+
+`articles/views.py` 수정  
+- 게시글 생성 시 user 정보 저장  
+
+```py
+# articles/views.py
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated]) # 게시글 조회, 생성은 권한이 필요하게 만듦
+def article_list(request):
+    ...
+
+    elif request.method == 'POST':
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            # serializer.save()
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+```
+
+<br>  
+
+`components/ArticleListItem.vue` 주석 해제  
+- article이 가지고 있을 user 정보 표현  
+
+```vue
+// components/AritcleListitem.vue  
+
+<template>
+  <div>
+    <h5>{{ article.id }}</h5>
+    <p>작성자: {{ article.username }}</p>
+    <p>{{ article.title }}</p>
+    <router-link :to="{
+      name: 'DetailView',
+      params: {id: article.id }}">
+      [DETAIL]
+    </router-link>
+    <hr>
+  </div>
+</template>
+```
+
+<br>  
+
+결과 확인  
+- 작성자 정보 확인 가능  
+
+![](2023-05-16-11-24-17.png)
