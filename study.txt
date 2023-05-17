@@ -17,3 +17,4 @@ code --list-extensions > extensions.list
 
 # 복구
 cat extensions.list |% { code --install-extension $_}
+asdfadsf
