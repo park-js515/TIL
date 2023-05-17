@@ -16,4 +16,4 @@ __del__ : 소멸자 메서드
 code --list-extensions > extensions.list
 
 # 복구
-cat extensions.list |% { code --install-extension $_} 
+cat extensions.list |% { code --install-extension $_}
