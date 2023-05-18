@@ -612,7 +612,7 @@ Store의 가독성을 향상시킬 수 있음
 ```js
 // store/modules/myModules.js
 
-const myMudule = {
+const myModule = {
   state: {
     level: 20,
   },
@@ -628,7 +628,7 @@ const myMudule = {
   }
 }
 
-export default myMudule
+export default myModule
 ```
 
 <br>
