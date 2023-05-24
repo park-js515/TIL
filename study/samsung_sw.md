@@ -278,6 +278,32 @@ print(res)
 
 &nbsp;
 
+### 1520 내리막 길
+
+DFS + DP or BFS + priority queue로 풀 수 있다는데...?
+
+```py
+def dfs(x, y):
+    if x == N - 1 and y == M - 1:
+        return 1
+    if dp[y][x] != -1:
+        return dp[y][x]
+    dp[y][x] = 0
+    for (nx, ny) in [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]:
+        if 0 > nx or nx >= N or 0 > ny or ny >= M:
+            continue
+        if m[y][x] > m[ny][nx]:
+            dp[y][x] += dfs(nx, ny)
+    return dp[y][x]
+
+M, N = map(int, input().split())
+m = [list(map(int, input().split())) for _ in range(M)]
+dp = [[-1] * N for _ in range(M)]
+print(dfs(0, 0))
+```
+
+&nbsp;
+
 ### 다음 문제
 
 ```
