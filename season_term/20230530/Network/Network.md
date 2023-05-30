@@ -117,3 +117,93 @@ Wi-Fi(IEEE.802.11): 무선 네트워크 프로토콜
 
 ![](2023-05-30-21-24-49.png)
 
+<hr>  
+
+## 응용 계층 프로토콜  
+
+HTTP(Hypertext Transfer protocol)  
+
+HTML과 같은 하이퍼미디어 문서를 전송하기 위한 응용계층 프로토콜  
+
+클라이언트-서버 모델을 따름  
+
+상태 비보존(stateless) 프로토콜  
+- 각각의 요청은 이전 요청과 독립적으로 처리  
+- 모든 요청은 개별적으로 처리하고 응답을 반환한 후 클라이언트와 연결을 끊음  
+- 서버는 클라이언트의 이전 요청이나 상태를 알지 못하며 
+- 클라이언트도 서버와의 상태를 유지하지 않음  
+- 클라이언트와 서버 간 상태를 공유해야 한다면 쿠키, 세션 등을 사용  
+
+<br>  
+
+> HTTP 메시지  
+
+![](2023-05-30-21-39-25.png)
+
+<a href="https://developer.mozilla.org/ko/docs/Web/HTTP">https://developer.mozilla.org/ko/docs/Web/HTTP</a>
+
+<hr>  
+
+## 전송계층 프로토콜  
+
+> 전송계층 (Transport)  
+
+응용 프로그램을 위한 end-to-end 통신 서비스를 제공  
+
+주요 프로토콜: TCP(Transmission Control Protocol), UDP(User Datagram Protocol)  
+
+<a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">https://en.wikipedia.org/wiki/Transmission_Control_Protocol</a>
+
+<hr>  
+
+## TCP  
+
+> 3-way handshake  
+
+TCP는 연결 지향적인 프로토콜. 연결이 확립된 후 데이터 전송이 가능   
+
+연결을 확립하는 과정을 3-way handshake라 한다.  
+
+1. 클라이언트는 서버에 연결 요청 (SYN)  
+2. 서버 응답 및 연결 수락 (SYN-ACK)  
+3. 클라잉너트 응답 및 연결 완료 (ACK)
+
+![](2023-05-30-21-46-42.png)
+
+<hr>  
+
+## 인터넷계층 프로토콜  
+
+IP Address
+- 인터넷 규약 주소는 네트워크 장치(Host)를 식별하기 위해 사용하는 번호  
+
+IPv4
+- 주소가 32비트로 구성, 일반적으로 사용하는 IP 주소  
+- 네트워크 ID, 호스트 ID로 구성됨  
+
+서브넷 마스크 (Subnet Mask)  
+
+![](2023-05-30-21-52-25.png)  
+
+<br>  
+
+IPv6  
+
+주소가 128비트로 구성. IP 부족 해결, 보안 기능 추가, 패킷 크기 확장 등 ..
+
+아직 많이 사용되고 있지 않음  
+
+![](2023-05-30-21-56-45.png)  
+
+<br>  
+
+Division of the Ipv4 Classes  
+- 넷 마스크 크기 고정, 가용 네트워크 및 호스트의 개수 고정  
+
+![](2023-05-30-21-59-31.png)   
+
+CIDR(Classless Inter-Domain Routing)  
+- 서브넷 마스크를 이용하여 할당된 네트워크를 논리적으로 분리하여 사용가능  
+- 유연하게 서브넷을 구성할 수 있으므로 자원을 효율적으로 사용 가능  
+
+<a href="https://cidr.xyz/">https://cidr.xyz/</a>
