@@ -52,6 +52,32 @@ for i, x in enumerate(lst):
 print(ans)
 ```
 
+### 분할정복 + 페르마의 소정리
+
+중요한 것은 MOD를 지속적으로 나누어주며, 분자에 대한 나머지 연산은 페르마의 소정리를 활용하는 것
+
+```r
+# https://www.acmicpc.net/problem/25974
+N, K = map(int, input().split())
+MOD = int(1e9+7)
+pascal = [[1]*(K+2) for _ in range(K+2)]
+for i in range(1, K+2):
+    for j in range(1, i):
+        pascal[i][j] = pascal[i-1][j-1]+pascal[i-1][j]
+
+dp = [0]*(K+1)
+dp[0] = N
+
+for i in range(1, K+1):
+    x = pow(N+1, i+1, MOD)-1
+    for j in range(i):
+        x -= pascal[i+1][j]*dp[j]
+    x *= pow(i+1,MOD-2, MOD)
+    dp[i] = x % MOD
+
+print(dp[K]%MOD)
+```
+
 ### lazy propagation  
 
 기존에 내가 풀던 방식을 사용하면 메모리 측면, 속도 측면에서 문제가 발생한다.
