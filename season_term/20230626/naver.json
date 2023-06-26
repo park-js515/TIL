@@ -1,0 +1,63 @@
+{
+    "lastBuildDate": "Mon, 26 Jun 2023 17:20:54 +0900",
+    "total": 5,
+    "start": 1,
+    "display": 5,
+    "items": [
+        {
+            "title": "<b>멀티캠퍼스</b>",
+            "link": "http://www.multicampus.com",
+            "category": "교육,학문>교육원,교육센터",
+            "description": "",
+            "telephone": "",
+            "address": "서울특별시 강남구 역삼동 701 서울상록빌딩",
+            "roadAddress": "서울특별시 강남구 언주로 508 서울상록빌딩",
+            "mapx": "315579",
+            "mapy": "545079"
+        },
+        {
+            "title": "<b>멀티캠퍼스</b> 선릉",
+            "link": "https://www.multicampus.com/",
+            "category": "교육,학문>교육원,교육센터",
+            "description": "",
+            "telephone": "",
+            "address": "서울특별시 강남구 대치동 889-41",
+            "roadAddress": "서울특별시 강남구 선릉로 428",
+            "mapx": "316192",
+            "mapy": "545005"
+        },
+        {
+            "title": "KG아이티뱅크 노량진학원",
+            "link": "http://guro.kgitbank.com/",
+            "category": "직업,기술학원>컴퓨터",
+            "description": "",
+            "telephone": "",
+            "address": "서울특별시 동작구 노량진동 45-3",
+            "roadAddress": "서울특별시 동작구 장승배기로 171 2층, 3층",
+            "mapx": "306480",
+            "mapy": "546192"
+        },
+        {
+            "title": "<b>멀티캠퍼스</b> 역삼",
+            "link": "http://www.multicampus.co.kr/",
+            "category": "직업,기술학원>컴퓨터",
+            "description": "",
+            "telephone": "",
+            "address": "서울특별시 강남구 역삼동 718-5",
+            "roadAddress": "서울특별시 강남구 테헤란로 212",
+            "mapx": "315269",
+            "mapy": "544785"
+        },
+        {
+            "title": "디원<b>멀티캠퍼스</b>",
+            "link": "http://d1mc.net/",
+            "category": "직업,기술학원",
+            "description": "",
+            "telephone": "",
+            "address": "서울특별시 구로구 구로동 1128-4",
+            "roadAddress": "서울특별시 구로구 디지털로32가길 18",
+            "mapx": "302778",
+            "mapy": "542858"
+        }
+    ]
+}
