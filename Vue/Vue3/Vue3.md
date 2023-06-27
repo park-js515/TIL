@@ -181,7 +181,7 @@ snowpack, parcel, rollup.js 등의 webpack 이외에도 다양한 모듈 번들�
 
 <hr>  
 
-> node_moduels의 의존성 깊이  
+> node_modules의 의존성 깊이  
 
 ![](2023-05-02-09-24-45.png)  
 
