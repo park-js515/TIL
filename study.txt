@@ -16,4 +16,8 @@ __del__ : 소멸자 메서드
 code --list-extensions > extensions.list
 
 # 복구
-cat extensions.list |% { code --install-extension $_} 
+cat extensions.list |% { code --install-extension $_}
+
+# vsCode tabSize 조정: json 파일을 건드릴 것
+"editor.insertSpaces": true,
+"editor.tabSize": 2,
