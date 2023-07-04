@@ -204,3 +204,103 @@ public class Main {
 }
 
 ```
+
+
+```java
+import java.io.*;
+import java.util.*;
+
+
+
+
+public class Main {
+    static int pint(String s) {
+        return Integer.parseInt(s);
+    }
+
+
+    static int[][] d = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+    static int[][] field;
+    static int out = 0;
+
+    static int[][] flow(int Direction) {
+        int Dir = Direction % 2;
+
+        if (Dir == 0) {
+            int x = d[Direction][0];
+            return new int[][] {
+                    {0, 1, 1},
+                    {0, -1, 1},
+                    {x, 1, 7},
+                    {x, -1, 7},
+                    {x, 2, 2},
+                    {x, -2, 2},
+                    {2 * x, 1, 10},
+                    {2 * x, -1, 10},
+                    {3 * x, 0, 5}
+            };
+        }
+        else {
+            int x = d[Direction][1];
+            return new int[][] {
+                    {1, 0, 1},
+                    {-1, 0, 1},
+                    {1, x, 7},
+                    {-1, x, 7},
+                    {2, x, 2},
+                    {-2, x, 2},
+                    {1, 2 * x, 10},
+                    {-1, 2 * x, 10},
+                    {0, 3 & x, 5}
+            };
+        }
+    }
+
+    static void move(int N) {
+        int r, c;
+        int nowD = 0;
+        int nowM = 1;
+        r = c = N / 2;
+
+
+        while (r != 0 || c != 0) {
+            int[][] sandFlow = flow(nowD);
+
+            for (int i = 0; i < nowM; i++) {
+                int leftPercent = 0;
+                int OutPercent = 0;
+                r += d[nowD][0];
+                c += d[nowD][1];
+                int y = field[r][c];
+                field[r][c] = 0;
+
+                for (int[] sf: sandFlow) {
+                    int dr = r + sf[0];
+                    int dc = c + sf[1];
+                    int p = sf[2];
+
+                    if (dr < 0 || dr >= N || dc < 0 || dc >= N) {
+                        OutPercent += p;
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = pint(br.readLine());
+        field = new int[N][N];
+
+        for (int i = 0; i < N; i++) {
+            String[] input = br.readLine().split(" ");
+            for (int j = 0; j < N; j++) {
+                field[i][j] = pint(input[j]);
+            }
+        }
+
+        br.close();
+    }
+}
+```
