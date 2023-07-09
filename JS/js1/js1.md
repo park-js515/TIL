@@ -580,7 +580,7 @@ const message  = `홍길동은 ${age}세 입니다.`
 
 > Empty Value  
 
-값이 존재하지 않음을 표현하느 값으로 JavaScript에서는  
+값이 존재하지 않음을 표현하는 값으로 JavaScript에서는  
 <mark>null</mark>과 <mark>undefined</mark>가 존재  
 
 동일한 역할을 하는 이 두 개의 키워드가 존재하는 이유는 단순한 JavaScript의 설계 실수  

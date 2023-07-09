@@ -290,7 +290,7 @@ JavaScript에서의 this는 일반적인 프로그래밍 언어에서의 this와
 JavaScript는 해당 <mark>함수 호출 방식</mark>에 따라 this에 바인딩되는 객체가 달라짐  
 
 즉, 함수를 선언할 때 this 객체가 결졍되는 것이 아니고,  
-함수를 호출할 때 <mark>함수가 어떻게 호출되었느닞에 따라 동적으로 결정</mark>됨  
+함수를 호출할 때 <mark>함수가 어떻게 호출되었는지에 따라 동적으로 결정</mark>됨  
 
 <hr>  
 
@@ -545,8 +545,8 @@ array.includes(value)
 ```js
 const numbers = [1, 2, 3, 4, 5]
 
-console.log(numbers.include(1)) // true
-console.log(numbers.include(100)) // false
+console.log(numbers.includes(1)) // true
+console.log(numbers.includes(100)) // false
 ```
 
 &nbsp;
